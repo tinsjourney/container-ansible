@@ -24,4 +24,4 @@ ENV MANPATH /opt/ansible/docs/man:
 RUN echo "localhost ansible_connection=local" > ~/ansible_hosts
 ENV ANSIBLE_INVENTORY=~/ansible_hosts
 WORKDIR /home/ansible
-CMD ["/opt/ansible/bin/ansible"]
+ENTRYPOINT ["/opt/ansible/bin/ansible"]
