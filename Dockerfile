@@ -4,17 +4,14 @@ MAINTAINER Tinsjourney <tintin@gnali.org>
 
 RUN yum -y --setopt="tsflags=nodocs" update && \
 	yum -y --setopt="tsflags=nodocs" install \
-		git \
-		which \
-		python-setuptools \
 		PyYAML \
 		python-jinja2 \
 	yum clean all && \
 	rm -rf /var/cache/yum/*
 
 
-RUN git clone git://github.com/ansible/ansible.git --recursive /opt/ansible
-RUN source /opt/ansible/hacking/env-setup
+ADD http://releases.ansible.com/ansible/ansible-2.2.1.0.tar.gz /opt/ansible/
+RUN tar -xzf /opt/ansible/ansible-2.2.1.0.tar.gz --strip-components=1 -C /opt/ansible
 
 RUN useradd -u 1000 ansible
 USER ansible
@@ -24,4 +21,4 @@ ENV MANPATH /opt/ansible/docs/man:
 RUN echo "localhost ansible_connection=local" > ~/ansible_hosts
 ENV ANSIBLE_INVENTORY=~/ansible_hosts
 WORKDIR /home/ansible
-CMD ["/opt/ansible/bin/ansible"]
+ENTRYPOINT ["/opt/ansible/bin/ansible"]
