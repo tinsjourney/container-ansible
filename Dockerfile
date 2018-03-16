@@ -10,8 +10,8 @@ RUN yum -y --setopt="tsflags=nodocs" update && \
 	rm -rf /var/cache/yum/*
 
 
-ADD http://releases.ansible.com/ansible/ansible-2.3.0.0.tar.gz /opt/ansible/
-RUN tar -xzf /opt/ansible/ansible-2.3.0.0.tar.gz --strip-components=1 -C /opt/ansible
+ADD http://releases.ansible.com/ansible/ansible-2.4.0.0.tar.gz /opt/ansible/
+RUN tar -xzf /opt/ansible/ansible-2.4.0.0.tar.gz --strip-components=1 -C /opt/ansible
 
 RUN useradd -u 1000 ansible
 USER ansible
