@@ -10,8 +10,9 @@ RUN yum -y --setopt="tsflags=nodocs" update && \
 	rm -rf /var/cache/yum/*
 
 
-ADD http://releases.ansible.com/ansible/ansible-2.4.1.0.tar.gz /opt/ansible/
-RUN tar -xzf /opt/ansible/ansible-2.4.1.0.tar.gz --strip-components=1 -C /opt/ansible
+ADD https://releases.ansible.com/ansible/ansible-2.7.4.tar.gz /opt/ansible/
+RUN tar pfx /opt/ansible/ansible-2.7.4.tar.gz --strip-components=1 -C /opt/ansible && \
+	rm /opt/ansible/ansible-2.7.4.tar.gz
 
 RUN useradd -u 1000 ansible
 USER ansible
@@ -21,4 +22,4 @@ ENV MANPATH /opt/ansible/docs/man:
 RUN echo "localhost ansible_connection=local" > ~/ansible_hosts
 ENV ANSIBLE_INVENTORY=~/ansible_hosts
 WORKDIR /home/ansible
-ENTRYPOINT ["/opt/ansible/bin/ansible"]
+ENTRYPOINT ["/opt/ansible/bin/ansible-playbook"]
